@@ -3,10 +3,36 @@ from tkinter import filedialog, messagebox, ttk
 import subprocess
 import os
 import threading
+import requests
+
+def create_github_repo(github_user, token):
+    url = "https://api.github.com/user/repos"
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    data = {
+        "name": "dashboard-suv",
+        "description": "Dashboard de SUVs México 2026",
+        "private": False,
+        "auto_init": True
+    }
+    response = requests.post(url, json=data, headers=headers)
+    if response.status_code == 201:
+        return True, "✅ Repositorio creado con éxito."
+    elif response.status_code == 422:
+        return True, "⚠️ El repositorio ya existe."  # Ya está creado
+    else:
+        return False, f"❌ Error al crear repositorio: {response.json().get('message', 'Desconocido')}"
 
 def run_git_commands(project_path, github_user, token):
     try:
         os.chdir(project_path)
+
+        # Crear repositorio si no existe
+        success, msg = create_github_repo(github_user, token)
+        if not success:
+            return False, msg
 
         # Inicializar repo si no existe
         if not os.path.exists(".git"):
@@ -17,7 +43,7 @@ def run_git_commands(project_path, github_user, token):
         if not status.stdout.strip():
             return True, "✅ No hay cambios. Todo está actualizado."
 
-        # Configurar nombre y email (requerido por Git)
+        # Configurar nombre y email
         subprocess.run(["git", "config", "user.name", github_user], check=True)
         subprocess.run(["git", "config", "user.email", f"{github_user}@users.noreply.github.com"], check=True)
 
@@ -29,9 +55,9 @@ def run_git_commands(project_path, github_user, token):
         remote_url = f"https://{github_user}:{token}@github.com/{github_user}/dashboard-suv.git"
         result = subprocess.run(["git", "remote"], capture_output=True, text=True)
         if "origin" not in result.stdout:
-            subprocess.run(["git", "remote", "add", "origin", remote_url], check=True)
+            subprocess.run(["git", "remote", "add", "origin", remoteUrl], check=True)
         else:
-            subprocess.run(["git", "remote", "set-url", "origin", remote_url], check=True)
+            subprocess.run(["git", "remote", "set-url", "origin", remoteUrl], check=True)
 
         # Subir cambios
         subprocess.run(["git", "branch", "-M", "main"], check=True)
