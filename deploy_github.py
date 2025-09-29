@@ -55,9 +55,9 @@ def run_git_commands(project_path, github_user, token):
         remote_url = f"https://{github_user}:{token}@github.com/{github_user}/dashboard-suv.git"
         result = subprocess.run(["git", "remote"], capture_output=True, text=True)
         if "origin" not in result.stdout:
-            subprocess.run(["git", "remote", "add", "origin", remoteUrl], check=True)
+            subprocess.run(["git", "remote", "add", "origin", remote_url], check=True)
         else:
-            subprocess.run(["git", "remote", "set-url", "origin", remoteUrl], check=True)
+            subprocess.run(["git", "remote", "set-url", "origin", remote_url], check=True)
 
         # Subir cambios
         subprocess.run(["git", "branch", "-M", "main"], check=True)
