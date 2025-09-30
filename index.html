@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SUVs México 2026</title>
+  <title>Dashboard SUVs México 2026</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
@@ -258,7 +258,7 @@
 <body>
 
   <div class="header">
-    <h1>SUVs México 2026</h1>
+    <h1>Dashboard SUVs México 2026</h1>
     <button class="theme-toggle" id="themeToggle">🌙 Modo Oscuro</button>
   </div>
 
@@ -281,7 +281,7 @@
   </div>
 
   <div class="footer">
-    Éste codigo HTML es realizado por Erick para su amoshi de su vidoshi!
+    HTML realizado por Erick Vera
   </div>
 
   <script>
@@ -294,27 +294,28 @@
 
     // === DATOS DE VEHÍCULOS ===
     const vehiculos = [
-      { id: 1, marca: "Toyota", modelo: "Corolla Cross", precio2026: 544000, paginaOficial: "https://www.toyota.mx/modelos/suv/corolla-cross/", motor: "2.0L", hp: 169, torque: "205 Nm", transmision: "CVT", traccion: "Delantera", consumo: "15.2 km/L", tipo: "Gasolina", tamaño: "Compacto", tieneColores: true, coloresDisponibles: ['azul', 'blanco', 'gris', 'negro', 'plata', 'rojo'] },
-      { id: 2, marca: "Toyota", modelo: "RAV4", precio2026: 577100, paginaOficial: "https://www.toyota.mx/modelos/suv/rav4/", motor: "2.5L", hp: 203, torque: "250 Nm", transmision: "Automática 8 velocidades", traccion: "AWD", consumo: "13.8 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: true, coloresDisponibles: ['blanco', 'blanco_perlado', 'gris', 'plata', 'rojo'] },
-      { id: 3, marca: "Honda", modelo: "HR-V", precio2026: 592900, paginaOficial: "https://www.honda.mx/autos/hr-v/2025", motor: "2.0L", hp: 155, torque: "136 lb-ft", transmision: "CVT", traccion: "Delantera", consumo: "16.5 km/L", tipo: "Gasolina", tamaño: "Compacto", tieneColores: true, coloresDisponibles: ['blanco', 'gris'] },
-      { id: 4, marca: "Honda", modelo: "CR-V", precio2026: 822900, paginaOficial: "https://www.honda.mx/autos/cr-v", motor: "1.5L Turbo", hp: 190, torque: "240 Nm", transmision: "CVT", traccion: "AWD", consumo: "15.8 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: true, coloresDisponibles: ['azul', 'blanco', 'negro', 'plata'] },
-      { id: 5, marca: "Nissan", modelo: "X-Trail", precio2026: 592900, paginaOficial: "https://www.nissan.com.mx/vehiculos/todos/x-trail.html", motor: "2.5L", hp: 181, torque: "240 Nm", transmision: "CVT", traccion: "AWD", consumo: "13.6 km/L (ciudad)", tipo: "Gasolina", tamaño: "Mediano", tieneColores: false },
-      { id: 6, marca: "Mazda", modelo: "CX-30", precio2026: 441900, paginaOficial: "https://www.mazda.mx/herramientas-de-compra/configura/mazda-cx-30", motor: "2.0L", hp: 166, torque: "213 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "14.8 km/L", tipo: "Gasolina", tamaño: "Compacto", tieneColores: false },
-      { id: 7, marca: "Mazda", modelo: "CX-5", precio2026: 551900, paginaOficial: "https://www.mazda.mx/herramientas-de-compra/configura/mazda-cx-5", motor: "2.5L", hp: 194, torque: "258 Nm", transmision: "Automática 6 velocidades", traccion: "AWD", consumo: "14.2 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: false },
-      { id: 8, marca: "Hyundai", modelo: "Tucson", precio2026: 609300, paginaOficial: "https://www.hyundai.com.mx/configurador-modelos/#/121GSA", motor: "2.0L", hp: 147, torque: "186 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "14.5 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: false },
-      { id: 9, marca: "Volkswagen", modelo: "Tiguan", precio2026: 599990, paginaOficial: "https://www.vw.com.mx/es/autos-suvs/tiguan.html", motor: "1.4L TSI", hp: 150, torque: "250 Nm", transmision: "DSG 7", traccion: "Delantera", consumo: "15.3 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: false },
-      { id: 10, marca: "Peugeot", modelo: "2008", precio2026: 469900, paginaOficial: "https://www.peugeot.com.mx/gama/nueva-peugeot2008.html", motor: "1.2L Turbo", hp: 130, torque: "230 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "17.3 km/L", tipo: "Gasolina", tamaño: "Compacto", tieneColores: true, coloresDisponibles: ['gris', 'plateado', 'rojo'] },
-      { id: 11, marca: "Peugeot", modelo: "3008", precio2026: 577400, paginaOficial: "https://www.peugeot.com.mx/gama/suv-peugeot-3008.html", motor: "1.6L Turbo", hp: 165, torque: "240 Nm", transmision: "Automática 6 velocidades", traccion: "AWD", consumo: "14.0 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: true, coloresDisponibles: ['azul', 'gris', 'negro'] },
-      { id: 12, marca: "Dodge", modelo: "Journey", precio2026: 406900, paginaOficial: "https://www.dodge.com/mx/journey.html", motor: "2.4L", hp: 173, torque: "230 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "13.5 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: false },
-      { id: 13, marca: "Chevrolet", modelo: "Tracker", precio2026: 356900, paginaOficial: "https://www.chevrolet.com.mx/suvs/tracker-mejor-suv-2025", motor: "1.0L Turbo", hp: 113, torque: "165 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "16.8 km/L", tipo: "Gasolina", tamaño: "Compacto", tieneColores: true, coloresDisponibles: ['blanco', 'gris', 'negro', 'rojo'] },
-      { id: 14, marca: "Chevrolet", modelo: "Trax", precio2026: 464900, paginaOficial: "https://www.chevrolet.com.mx/suvs/trax-suv-deportiva", motor: "1.2L Turbo", hp: 137, torque: "240 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "15.5 km/L", tipo: "Gasolina", tamaño: "Compacto", tieneColores: true, coloresDisponibles: ['amarillo', 'azul', 'blanco', 'gris', 'gris_obscuro', 'negro', 'rojo'] },
-      { id: 15, marca: "Ford", modelo: "Territory", precio2026: 599000, paginaOficial: "https://www.ford.mx/suv/territory/2025/", motor: "1.8L Turbo", hp: 187, torque: "236 lb-ft", transmision: "Automática 7 velocidades", traccion: "AWD", consumo: "13.2 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: true, coloresDisponibles: ['blanco', 'negro', 'rojo'] }
+      { id: 1, marca: "Toyota", modelo: "Corolla Cross", precio2026: 544000, paginaOficial: "https://www.toyota.mx/modelos/suv/corolla-cross/", motor: "2.0L", hp: 169, torque: "205 Nm", transmision: "CVT", traccion: "Delantera", consumo: "15.2 km/L", tipo: "Gasolina", tamaño: "Compacto" },
+      { id: 2, marca: "Toyota", modelo: "RAV4", precio2026: 577100, paginaOficial: "https://www.toyota.mx/modelos/suv/rav4/", motor: "2.5L", hp: 203, torque: "250 Nm", transmision: "Automática 8 velocidades", traccion: "AWD", consumo: "13.8 km/L", tipo: "Gasolina", tamaño: "Mediano" },
+      { id: 3, marca: "Honda", modelo: "HR-V", precio2026: 592900, paginaOficial: "https://www.honda.mx/autos/hr-v/2025", motor: "2.0L", hp: 155, torque: "136 lb-ft", transmision: "CVT", traccion: "Delantera", consumo: "16.5 km/L", tipo: "Gasolina", tamaño: "Compacto" },
+      { id: 4, marca: "Honda", modelo: "CR-V", precio2026: 822900, paginaOficial: "https://www.honda.mx/autos/cr-v", motor: "1.5L Turbo", hp: 190, torque: "240 Nm", transmision: "CVT", traccion: "AWD", consumo: "15.8 km/L", tipo: "Gasolina", tamaño: "Mediano" },
+      { id: 5, marca: "Nissan", modelo: "X-Trail", precio2026: 592900, paginaOficial: "https://www.nissan.com.mx/vehiculos/todos/x-trail.html", motor: "2.5L", hp: 181, torque: "240 Nm", transmision: "CVT", traccion: "AWD", consumo: "13.6 km/L (ciudad)", tipo: "Gasolina", tamaño: "Mediano" },
+      { id: 6, marca: "Mazda", modelo: "CX-30", precio2026: 441900, paginaOficial: "https://www.mazda.mx/herramientas-de-compra/configura/mazda-cx-30", motor: "2.0L", hp: 166, torque: "213 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "14.8 km/L", tipo: "Gasolina", tamaño: "Compacto" },
+      { id: 7, marca: "Mazda", modelo: "CX-5", precio2026: 551900, paginaOficial: "https://www.mazda.mx/herramientas-de-compra/configura/mazda-cx-5", motor: "2.5L", hp: 194, torque: "258 Nm", transmision: "Automática 6 velocidades", traccion: "AWD", consumo: "14.2 km/L", tipo: "Gasolina", tamaño: "Mediano" },
+      { id: 8, marca: "Hyundai", modelo: "Tucson", precio2026: 609300, paginaOficial: "https://www.hyundai.com.mx/configurador-modelos/#/121GSA", motor: "2.0L", hp: 147, torque: "186 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "14.5 km/L", tipo: "Gasolina", tamaño: "Mediano" },
+      { id: 9, marca: "Volkswagen", modelo: "Tiguan", precio2026: 599990, paginaOficial: "https://www.vw.com.mx/es/autos-suvs/tiguan.html", motor: "1.4L TSI", hp: 150, torque: "250 Nm", transmision: "DSG 7", traccion: "Delantera", consumo: "15.3 km/L", tipo: "Gasolina", tamaño: "Mediano" },
+      { id: 10, marca: "Peugeot", modelo: "2008", precio2026: 469900, paginaOficial: "https://www.peugeot.com.mx/gama/nueva-peugeot2008.html", motor: "1.2L Turbo", hp: 130, torque: "230 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "17.3 km/L", tipo: "Gasolina", tamaño: "Compacto" },
+      { id: 11, marca: "Peugeot", modelo: "3008", precio2026: 577400, paginaOficial: "https://www.peugeot.com.mx/gama/suv-peugeot-3008.html", motor: "1.6L Turbo", hp: 165, torque: "240 Nm", transmision: "Automática 6 velocidades", traccion: "AWD", consumo: "14.0 km/L", tipo: "Gasolina", tamaño: "Mediano" },
+      { id: 12, marca: "Dodge", modelo: "Journey", precio2026: 406900, paginaOficial: "https://www.dodge.com/mx/journey.html", motor: "2.4L", hp: 173, torque: "230 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "13.5 km/L", tipo: "Gasolina", tamaño: "Mediano" },
+      { id: 13, marca: "Chevrolet", modelo: "Tracker", precio2026: 356900, paginaOficial: "https://www.chevrolet.com.mx/suvs/tracker-mejor-suv-2025", motor: "1.0L Turbo", hp: 113, torque: "165 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "16.8 km/L", tipo: "Gasolina", tamaño: "Compacto" },
+      { id: 14, marca: "Chevrolet", modelo: "Trax", precio2026: 464900, paginaOficial: "https://www.chevrolet.com.mx/suvs/trax-suv-deportiva", motor: "1.2L Turbo", hp: 137, torque: "240 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "15.5 km/L", tipo: "Gasolina", tamaño: "Compacto" },
+      { id: 15, marca: "Ford", modelo: "Territory", precio2026: 599000, paginaOficial: "https://www.ford.mx/suv/territory/2025/", motor: "1.8L Turbo", hp: 187, torque: "236 lb-ft", transmision: "Automática 7 velocidades", traccion: "AWD", consumo: "13.2 km/L", tipo: "Gasolina", tamaño: "Mediano" }
     ];
 
     let vehiculoActual = null;
-    let colorActual = 'azul';
+    let colorActual = null;
     let indiceImagen = 0;
     let totalImagenes = 1;
+    let coloresDetectados = [];
 
     // === FUNCIONES AUXILIARES ===
     function getBaseFolderName(veh) {
@@ -370,7 +371,7 @@
       const folderBase = getBaseFolderName(vehiculoActual);
       let rutaBase;
 
-      if (vehiculoActual.tieneColores) {
+      if (colorActual) {
         rutaBase = `${folderBase}/${colorActual}/`;
       } else {
         rutaBase = `${folderBase}/`;
@@ -395,24 +396,34 @@
       probar();
     }
 
-    function getColoresDelVehiculo(veh) {
-      if (!veh.tieneColores) return [];
-      const coloresHex = {
-        'azul': '#3498db',
-        'blanco': '#ffffff',
-        'gris': '#95a5a6',
-        'negro': '#2c3e50',
-        'plata': '#bdc3c7',
-        'rojo': '#e74c3c',
-        'blanco_perlado': '#f2f2f2',
-        'plateado': '#bdc3c7',
-        'amarillo': '#f1c40f',
-        'gris_obscuro': '#7f8c8d'
-      };
-      return veh.coloresDisponibles.map(color => ({
-        nombre: color,
-        hex: coloresHex[color] || '#ccc'
-      }));
+    // === DETECCIÓN AUTOMÁTICA DE COLORES ===
+    function detectarColores(veh, callback) {
+      const folderBase = getBaseFolderName(veh);
+      const colores = [];
+      const coloresPosibles = ['azul', 'blanco', 'gris', 'negro', 'plata', 'rojo', 'blanco_perlado', 'plateado', 'amarillo', 'gris_obscuro'];
+
+      let count = 0;
+      const total = coloresPosibles.length;
+
+      function verificarColor(color) {
+        const folderPath = `${folderBase}/${color}/`;
+        probarImagen(folderPath, 1, (existe) => {
+          if (existe) {
+            colores.push(color);
+          }
+          count++;
+          if (count === total) {
+            callback(colores);
+          }
+        });
+      }
+
+      if (total === 0) {
+        callback([]);
+        return;
+      }
+
+      coloresPosibles.forEach(verificarColor);
     }
 
     // === CARGAR MARCAS Y MODELOS ===
@@ -463,19 +474,23 @@
       if (!veh) return;
 
       vehiculoActual = veh;
-      if (veh.tieneColores) {
-        const colores = getColoresDelVehiculo(veh);
-        colorActual = colores.length > 0 ? colores[0].nombre : 'azul';
-      }
-      indiceImagen = 0;
-      cargarTotalYRenderizar();
+      detectarColores(veh, (colores) => {
+        coloresDetectados = colores;
+        if (colores.length > 0) {
+          colorActual = colores[0];
+        } else {
+          colorActual = null;
+        }
+        indiceImagen = 0;
+        cargarTotalYRenderizar();
+      });
     }
 
     function cargarTotalYRenderizar() {
       const folderBase = getBaseFolderName(vehiculoActual);
       let folderPath;
 
-      if (vehiculoActual.tieneColores) {
+      if (colorActual) {
         folderPath = `${folderBase}/${colorActual}/`;
       } else {
         folderPath = `${folderBase}/`;
@@ -505,16 +520,28 @@
       }).format(veh.precio2026);
 
       let colorSelectorHTML = '';
-      if (veh.tieneColores) {
-        const colores = getColoresDelVehiculo(veh);
+      if (coloresDetectados.length > 0) {
         colorSelectorHTML = '<div class="color-selector">';
-        colores.forEach(c => {
-          const isActive = c.nombre === colorActual ? 'active' : '';
+        coloresDetectados.forEach(c => {
+          const hexMap = {
+            'azul': '#3498db',
+            'blanco': '#ffffff',
+            'gris': '#95a5a6',
+            'negro': '#2c3e50',
+            'plata': '#bdc3c7',
+            'rojo': '#e74c3c',
+            'blanco_perlado': '#f2f2f2',
+            'plateado': '#bdc3c7',
+            'amarillo': '#f1c40f',
+            'gris_obscuro': '#7f8c8d'
+          };
+          const hex = hexMap[c] || '#ccc';
+          const isActive = c === colorActual ? 'active' : '';
           colorSelectorHTML += `
             <div class="color-btn ${isActive}" 
-                 style="background-color: ${c.hex};"
-                 onclick="cambiarColor('${c.nombre}')"
-                 title="${c.nombre.charAt(0).toUpperCase() + c.nombre.slice(1)}">
+                 style="background-color: ${hex};"
+                 onclick="cambiarColor('${c}')"
+                 title="${c.charAt(0).toUpperCase() + c.slice(1)}">
             </div>`;
         });
         colorSelectorHTML += '</div>';
@@ -575,7 +602,7 @@
 
     // === FUNCIONES GLOBALES ===
     window.cambiarColor = function(color) {
-      if (vehiculoActual && vehiculoActual.tieneColores) {
+      if (vehiculoActual) {
         colorActual = color;
         indiceImagen = 0;
         cargarTotalYRenderizar();
