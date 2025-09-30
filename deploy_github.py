@@ -60,6 +60,7 @@ def run_git_commands(project_path, github_user, token):
             subprocess.run(["git", "remote", "set-url", "origin", remote_url], check=True)
 
         # Subir cambios
+        # Subir cambios
         subprocess.run(["git", "branch", "-M", "main"], check=True)
         subprocess.run(["git", "push", "-u", "origin", "main"], check=True, capture_output=True)
 
