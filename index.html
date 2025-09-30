@@ -281,7 +281,7 @@
   </div>
 
   <div class="footer">
-    Este codigo HTML es realizado por Erick para su Amoshi de su vidoshi
+    Éste codigo HTML es realizado por Erick para su amoshi de su vidoshi!
   </div>
 
   <script>
@@ -302,7 +302,7 @@
       { id: 6, marca: "Mazda", modelo: "CX-30", precio2026: 441900, paginaOficial: "https://www.mazda.mx/herramientas-de-compra/configura/mazda-cx-30", motor: "2.0L", hp: 166, torque: "213 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "14.8 km/L", tipo: "Gasolina", tamaño: "Compacto", tieneColores: false },
       { id: 7, marca: "Mazda", modelo: "CX-5", precio2026: 551900, paginaOficial: "https://www.mazda.mx/herramientas-de-compra/configura/mazda-cx-5", motor: "2.5L", hp: 194, torque: "258 Nm", transmision: "Automática 6 velocidades", traccion: "AWD", consumo: "14.2 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: false },
       { id: 8, marca: "Hyundai", modelo: "Tucson", precio2026: 609300, paginaOficial: "https://www.hyundai.com.mx/configurador-modelos/#/121GSA", motor: "2.0L", hp: 147, torque: "186 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "14.5 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: false },
-      { id: 9, marca: "Volkswagen", modelo: "Tiguan", precio2026: 599990, paginaOficial: "https://www.vw.com.mx/es/autos-suvs/tiguan.html", motor: "1.4L TSI", hp: 150, torque: "250 Nm", transmision: "DSG 7", traccion: "Delantera", consumo: "15.3 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: true, coloresDisponibles: ['gris'] },
+      { id: 9, marca: "Volkswagen", modelo: "Tiguan", precio2026: 599990, paginaOficial: "https://www.vw.com.mx/es/autos-suvs/tiguan.html", motor: "1.4L TSI", hp: 150, torque: "250 Nm", transmision: "DSG 7", traccion: "Delantera", consumo: "15.3 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: false },
       { id: 10, marca: "Peugeot", modelo: "2008", precio2026: 469900, paginaOficial: "https://www.peugeot.com.mx/gama/nueva-peugeot2008.html", motor: "1.2L Turbo", hp: 130, torque: "230 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "17.3 km/L", tipo: "Gasolina", tamaño: "Compacto", tieneColores: true, coloresDisponibles: ['gris', 'plateado', 'rojo'] },
       { id: 11, marca: "Peugeot", modelo: "3008", precio2026: 577400, paginaOficial: "https://www.peugeot.com.mx/gama/suv-peugeot-3008.html", motor: "1.6L Turbo", hp: 165, torque: "240 Nm", transmision: "Automática 6 velocidades", traccion: "AWD", consumo: "14.0 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: true, coloresDisponibles: ['azul', 'gris', 'negro'] },
       { id: 12, marca: "Dodge", modelo: "Journey", precio2026: 406900, paginaOficial: "https://www.dodge.com/mx/journey.html", motor: "2.4L", hp: 173, torque: "230 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", consumo: "13.5 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: false },
@@ -368,9 +368,12 @@
 
     function cargarImagen(num, callback) {
       const folderBase = getBaseFolderName(vehiculoActual);
-      let folderPath = folderBase + '/';
+      let rutaBase;
+
       if (vehiculoActual.tieneColores) {
-        folderPath = `${folderBase}/${colorActual}/`;
+        rutaBase = `${folderBase}/${colorActual}/`;
+      } else {
+        rutaBase = `${folderBase}/`;
       }
 
       let index = 0;
@@ -380,7 +383,7 @@
           return;
         }
         const ext = EXTENSIONES[index];
-        const ruta = `${folderPath}${num}${ext}?v=${Date.now()}`;
+        const ruta = `${rutaBase}${num}${ext}?v=${Date.now()}`;
         const img = new Image();
         img.onload = () => callback(ruta);
         img.onerror = () => {
@@ -470,9 +473,12 @@
 
     function cargarTotalYRenderizar() {
       const folderBase = getBaseFolderName(vehiculoActual);
-      let folderPath = folderBase + '/';
+      let folderPath;
+
       if (vehiculoActual.tieneColores) {
         folderPath = `${folderBase}/${colorActual}/`;
+      } else {
+        folderPath = `${folderBase}/`;
       }
 
       detectarTotalImagenes(folderPath, (total) => {
