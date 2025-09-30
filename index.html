@@ -281,7 +281,7 @@
   </div>
 
   <div class="footer">
-    Este codigo HTML esta realizado por Erick para su Amoshi de su vidoshi
+    Este codigo HTML es realizado por Erick para su Amoshi de su Vidoshi
   </div>
 
   <script>
@@ -312,7 +312,7 @@
     ];
 
     let vehiculoActual = null;
-    let colorActual = 'gris'; // VW Tiguan usa gris por defecto
+    let colorActual = 'azul';
     let indiceImagen = 0;
     let totalImagenes = 1;
 
@@ -462,7 +462,7 @@
       vehiculoActual = veh;
       if (veh.tieneColores) {
         const colores = getColoresDelVehiculo(veh);
-        colorActual = colores.length > 0 ? colores[0].nombre : 'gris';
+        colorActual = colores.length > 0 ? colores[0].nombre : 'azul';
       }
       indiceImagen = 0;
       cargarTotalYRenderizar();
