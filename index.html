@@ -281,7 +281,7 @@
   </div>
 
   <div class="footer">
-    HTML realizado por Erick Vera!!!!!!!!!!!!!
+    HTML realizado por Erick Vera
   </div>
 
   <script>
@@ -323,39 +323,9 @@
       return `imagenes/${marca}/${marca}_${modelo}`;
     }
 
-    const EXTENSIONES = ['.avif', '.webp', '.jpg', '.png', '.jpeg'];
+    const EXTENSIONES = ['.avif', '.webp', '.jpg', '.png', '.jpeg', '.JPG'];
 
-    // ✅ Función corregida para VW Tiguan
     function probarImagen(rutaBase, num, callback) {
-      // Si es VW Tiguan, prueba primero .JPG (mayúsculas)
-      if (vehiculoActual && vehiculoActual.marca === "Volkswagen" && vehiculoActual.modelo === "Tiguan") {
-        const jpgMayuscula = '.JPG';
-        const img = new Image();
-        img.onload = () => callback(true);
-        img.onerror = () => {
-          // Si falla .JPG, prueba las otras extensiones
-          let index = 0;
-          function intentarRestantes() {
-            if (index >= EXTENSIONES.length) {
-              callback(false);
-              return;
-            }
-            const ext = EXTENSIONES[index];
-            const img2 = new Image();
-            img2.onload = () => callback(true);
-            img2.onerror = () => {
-              index++;
-              intentarRestantes();
-            };
-            img2.src = `${rutaBase}${num}${ext}?v=${Date.now()}`;
-          }
-          intentarRestantes();
-        };
-        img.src = `${rutaBase}${num}${jpgMayuscula}?v=${Date.now()}`;
-        return;
-      }
-
-      // Para otros vehículos, usa el orden normal
       let index = 0;
       function intentar() {
         if (index >= EXTENSIONES.length) {
@@ -376,7 +346,7 @@
 
     function detectarTotalImagenes(folderPath, callback) {
       let count = 0;
-      const maxImages = 20; // Aumentado a 20 para VW Tiguan
+      const maxImages = 20;
 
       function verificarSiguiente(num) {
         if (num > maxImages) {
@@ -479,7 +449,6 @@
 
     // === MOSTRAR VEHÍCULO ===
     function mostrarVehiculo(id) {
-      // Mostrar loading
       document.getElementById("mainContent").innerHTML = `
         <div class="loading show" id="loadingIndicator">
           <div class="spinner"></div>
@@ -519,7 +488,6 @@
     }
 
     function renderizarContenido(rutaImagen) {
-      // Ocultar loading
       const loading = document.getElementById("loadingIndicator");
       if (loading) loading.classList.remove("show");
 
@@ -546,7 +514,6 @@
         colorSelectorHTML += '</div>';
       }
 
-      // Indicadores (puntos)
       let dotsHTML = '';
       if (totalImagenes > 1) {
         dotsHTML = '<div class="dots-container">';
