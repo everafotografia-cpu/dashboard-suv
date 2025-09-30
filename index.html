@@ -323,57 +323,57 @@
       return `imagenes/${marca}/${marca}_${modelo}`;
     }
 
-    const EXTENSIONES = ['.avif', '.webp', '.jpg', '.png', '.jpeg', '.JPG'];
+    const EXTENSIONES = ['.avif', '.webp', '.jpg', '.png', '.jpeg'];
 
+    // ✅ Función corregida para VW Tiguan
     function probarImagen(rutaBase, num, callback) {
-  // Primero prueba .JPG (mayúsculas) si es VW Tiguan
-  if (vehiculoActual && vehiculoActual.marca === "Volkswagen" && vehiculoActual.modelo === "Tiguan") {
-    const jpgMayuscula = '.JPG';
-    const img = new Image();
-    img.onload = () => callback(true);
-    img.onerror = () => {
-      // Si falla .JPG, prueba las otras extensiones
+      // Si es VW Tiguan, prueba primero .JPG (mayúsculas)
+      if (vehiculoActual && vehiculoActual.marca === "Volkswagen" && vehiculoActual.modelo === "Tiguan") {
+        const jpgMayuscula = '.JPG';
+        const img = new Image();
+        img.onload = () => callback(true);
+        img.onerror = () => {
+          // Si falla .JPG, prueba las otras extensiones
+          let index = 0;
+          function intentarRestantes() {
+            if (index >= EXTENSIONES.length) {
+              callback(false);
+              return;
+            }
+            const ext = EXTENSIONES[index];
+            const img2 = new Image();
+            img2.onload = () => callback(true);
+            img2.onerror = () => {
+              index++;
+              intentarRestantes();
+            };
+            img2.src = `${rutaBase}${num}${ext}?v=${Date.now()}`;
+          }
+          intentarRestantes();
+        };
+        img.src = `${rutaBase}${num}${jpgMayuscula}?v=${Date.now()}`;
+        return;
+      }
+
+      // Para otros vehículos, usa el orden normal
       let index = 0;
-      function intentarRestantes() {
+      function intentar() {
         if (index >= EXTENSIONES.length) {
           callback(false);
           return;
         }
         const ext = EXTENSIONES[index];
-        const img2 = new Image();
-        img2.onload = () => callback(true);
-        img2.onerror = () => {
+        const img = new Image();
+        img.onload = () => callback(true);
+        img.onerror = () => {
           index++;
-          intentarRestantes();
+          intentar();
         };
-        img2.src = `${rutaBase}${num}${ext}?v=${Date.now()}`;
+        img.src = `${rutaBase}${num}${ext}?v=${Date.now()}`;
       }
-      intentarRestantes();
-    };
-    img.src = `${rutaBase}${num}${jpgMayuscula}?v=${Date.now()}`;
-    return;
-  }
-
-  // Para otros vehículos, usa el orden normal
-  let index = 0;
-  function intentar() {
-    if (index >= EXTENSIONES.length) {
-      callback(false);
-      return;
-    }
-    const ext = EXTENSIONES[index];
-    const img = new Image();
-    img.onload = () => callback(true);
-    img.onerror = () => {
-      index++;
       intentar();
-    };
-    img.src = `${rutaBase}${num}${ext}?v=${Date.now()}`;
-  }
-  intentar();
-}
+    }
 
-    // ✅ Soporte hasta 20 imágenes (ideal para VW Tiguan)
     function detectarTotalImagenes(folderPath, callback) {
       let count = 0;
       const maxImages = 20; // Aumentado a 20 para VW Tiguan
