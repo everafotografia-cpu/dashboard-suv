@@ -297,549 +297,347 @@
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        document.getElementById('themeToggle').textContent = '☀️ Modo Claro';
-      }
+    // === CONFIGURACIÓN INICIAL ===
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      document.getElementById('themeToggle').textContent = '☀️ Modo Claro';
+    }
 
-      const vehiculos = [
-        {
-          id: 1,
-          marca: "Toyota",
-          modelo: "Corolla Cross",
-          tamaño: "Compacto",
-          motor: "2.0L",
-          cilindros: 4,
-          hp: 169,
-          torque: "205 Nm",
-          transmision: "CVT",
-          traccion: "Delantera",
-          capacidadCarga: "436 L",
-          consumo: "15.2 km/L",
-          tipo: "Gasolina",
-          precio2026: 544000,
-          paginaOficial: "https://www.toyota.mx/modelos/suv/corolla-cross/",
-          tieneColores: true,
-          coloresDisponibles: ['azul', 'blanco', 'gris', 'negro', 'plata', 'rojo'],
-          imagenesPorColor: 1
-        },
-        {
-          id: 2,
-          marca: "Toyota",
-          modelo: "RAV4",
-          tamaño: "Mediano",
-          motor: "2.5L",
-          cilindros: 4,
-          hp: 203,
-          torque: "250 Nm",
-          transmision: "Automática 8 velocidades",
-          traccion: "AWD",
-          capacidadCarga: "580 L",
-          consumo: "13.8 km/L",
-          tipo: "Gasolina",
-          precio2026: 577100,
-          paginaOficial: "https://www.toyota.mx/modelos/suv/rav4/",
-          tieneColores: true,
-          coloresDisponibles: ['blanco', 'blanco_perlado', 'gris', 'plata', 'rojo'],
-          imagenesPorColor: 1
-        },
-        {
-          id: 3,
-          marca: "Honda",
-          modelo: "HR-V",
-          tamaño: "Compacto",
-          motor: "2.0L",
-          cilindros: 4,
-          hp: 155,
-          torque: "136 lb-ft",
-          transmision: "CVT",
-          traccion: "Delantera",
-          capacidadCarga: "470 L",
-          consumo: "16.5 km/L",
-          tipo: "Gasolina",
-          precio2026: 592900,
-          paginaOficial: "https://www.honda.mx/autos/hr-v/2025",
-          tieneColores: true,
-          coloresDisponibles: ['blanco', 'gris'],
-          imagenesPorColor: 1
-        },
-        {
-          id: 4,
-          marca: "Honda",
-          modelo: "CR-V",
-          tamaño: "Mediano",
-          motor: "1.5L Turbo",
-          cilindros: 4,
-          hp: 190,
-          torque: "240 Nm",
-          transmision: "CVT",
-          traccion: "AWD",
-          capacidadCarga: "580 L",
-          consumo: "15.8 km/L",
-          tipo: "Gasolina",
-          precio2026: 822900,
-          paginaOficial: "https://www.honda.mx/autos/cr-v",
-          tieneColores: true,
-          coloresDisponibles: ['azul', 'blanco', 'negro', 'plata'],
-          imagenesPorColor: 1
-        },
-        {
-          id: 5,
-          marca: "Nissan",
-          modelo: "X-Trail",
-          tamaño: "Mediano",
-          motor: "2.5L",
-          cilindros: 4,
-          hp: 181,
-          torque: "240 Nm",
-          transmision: "CVT",
-          traccion: "AWD",
-          capacidadCarga: "580 L",
-          consumo: "13.6 km/L (ciudad)",
-          tipo: "Gasolina",
-          precio2026: 592900,
-          paginaOficial: "https://www.nissan.com.mx/vehiculos/todos/x-trail.html",
-          tieneColores: false,
-          imagenesTotal: 1
-        },
-        {
-          id: 6,
-          marca: "Mazda",
-          modelo: "CX-30",
-          tamaño: "Compacto",
-          motor: "2.0L",
-          cilindros: 4,
-          hp: 166,
-          torque: "213 Nm",
-          transmision: "Automática 6 velocidades",
-          traccion: "Delantera",
-          capacidadCarga: "430 L",
-          consumo: "14.8 km/L",
-          tipo: "Gasolina",
-          precio2026: 441900,
-          paginaOficial: "https://www.mazda.mx/herramientas-de-compra/configura/mazda-cx-30",
-          tieneColores: false,
-          imagenesTotal: 1
-        },
-        {
-          id: 7,
-          marca: "Mazda",
-          modelo: "CX-5",
-          tamaño: "Mediano",
-          motor: "2.5L",
-          cilindros: 4,
-          hp: 194,
-          torque: "258 Nm",
-          transmision: "Automática 6 velocidades",
-          traccion: "AWD",
-          capacidadCarga: "580 L",
-          consumo: "14.2 km/L",
-          tipo: "Gasolina",
-          precio2026: 551900,
-          paginaOficial: "https://www.mazda.mx/herramientas-de-compra/configura/mazda-cx-5",
-          tieneColores: false,
-          imagenesTotal: 1
-        },
-        {
-          id: 8,
-          marca: "Hyundai",
-          modelo: "Tucson",
-          tamaño: "Mediano",
-          motor: "2.0L",
-          cilindros: 4,
-          hp: 147,
-          torque: "186 Nm",
-          transmision: "Automática 6 velocidades",
-          traccion: "Delantera",
-          capacidadCarga: "580 L",
-          consumo: "14.5 km/L",
-          tipo: "Gasolina",
-          precio2026: 609300,
-          paginaOficial: "https://www.hyundai.com.mx/configurador-modelos/#/121GSA",
-          tieneColores: false,
-          imagenesTotal: 1
-        },
-        {
-          id: 9,
-          marca: "Volkswagen",
-          modelo: "Tiguan",
-          tamaño: "Mediano",
-          motor: "1.4L TSI",
-          cilindros: 4,
-          hp: 150,
-          torque: "250 Nm",
-          transmision: "DSG 7",
-          traccion: "Delantera",
-          capacidadCarga: "580 L",
-          consumo: "15.3 km/L",
-          tipo: "Gasolina",
-          precio2026: 599990,
-          paginaOficial: "https://www.vw.com.mx/es/autos-suvs/tiguan.html",
-          tieneColores: false,
-          imagenesTotal: 1
-        },
-        {
-          id: 10,
-          marca: "Peugeot",
-          modelo: "2008",
-          tamaño: "Compacto",
-          motor: "1.2L Turbo",
-          cilindros: 3,
-          hp: 130,
-          torque: "230 Nm",
-          transmision: "Automática 6 velocidades",
-          traccion: "Delantera",
-          capacidadCarga: "430 L",
-          consumo: "17.3 km/L",
-          tipo: "Gasolina",
-          precio2026: 469900,
-          paginaOficial: "https://www.peugeot.com.mx/gama/nueva-peugeot2008.html",
-          tieneColores: true,
-          coloresDisponibles: ['gris', 'plateado', 'rojo'],
-          imagenesPorColor: 1
-        },
-        {
-          id: 11,
-          marca: "Peugeot",
-          modelo: "3008",
-          tamaño: "Mediano",
-          motor: "1.6L Turbo",
-          cilindros: 4,
-          hp: 165,
-          torque: "240 Nm",
-          transmision: "Automática 6 velocidades",
-          traccion: "AWD",
-          capacidadCarga: "580 L",
-          consumo: "14.0 km/L",
-          tipo: "Gasolina",
-          precio2026: 577400,
-          paginaOficial: "https://www.peugeot.com.mx/gama/suv-peugeot-3008.html",
-          tieneColores: true,
-          coloresDisponibles: ['azul', 'gris', 'negro'],
-          imagenesPorColor: 1
-        },
-        {
-          id: 12,
-          marca: "Dodge",
-          modelo: "Journey",
-          tamaño: "Mediano",
-          motor: "2.4L",
-          cilindros: 4,
-          hp: 173,
-          torque: "230 Nm",
-          transmision: "Automática 6 velocidades",
-          traccion: "Delantera",
-          capacidadCarga: "580 L",
-          consumo: "13.5 km/L",
-          tipo: "Gasolina",
-          precio2026: 406900,
-          paginaOficial: "https://www.dodge.com/mx/journey.html",
-          tieneColores: false,
-          imagenesTotal: 1
+    // === BASE DE DATOS DE VEHÍCULOS (15 MODELOS) ===
+    const vehiculos = [
+      // Toyota
+      { id: 1, marca: "Toyota", modelo: "Corolla Cross", tamaño: "Compacto", motor: "2.0L", cilindros: 4, hp: 169, torque: "205 Nm", transmision: "CVT", traccion: "Delantera", capacidadCarga: "436 L", consumo: "15.2 km/L", tipo: "Gasolina", precio2026: 544000, paginaOficial: "https://www.toyota.mx/modelos/suv/corolla-cross/", tieneColores: true, coloresDisponibles: ['azul', 'blanco', 'gris', 'negro', 'plata', 'rojo'], imagenesPorColor: 1 },
+      { id: 2, marca: "Toyota", modelo: "RAV4", tamaño: "Mediano", motor: "2.5L", cilindros: 4, hp: 203, torque: "250 Nm", transmision: "Automática 8 velocidades", traccion: "AWD", capacidadCarga: "580 L", consumo: "13.8 km/L", tipo: "Gasolina", precio2026: 577100, paginaOficial: "https://www.toyota.mx/modelos/suv/rav4/", tieneColores: true, coloresDisponibles: ['blanco', 'blanco_perlado', 'gris', 'plata', 'rojo'], imagenesPorColor: 1 },
+      
+      // Honda
+      { id: 3, marca: "Honda", modelo: "HR-V", tamaño: "Compacto", motor: "2.0L", cilindros: 4, hp: 155, torque: "136 lb-ft", transmision: "CVT", traccion: "Delantera", capacidadCarga: "470 L", consumo: "16.5 km/L", tipo: "Gasolina", precio2026: 592900, paginaOficial: "https://www.honda.mx/autos/hr-v/2025", tieneColores: true, coloresDisponibles: ['blanco', 'gris'], imagenesPorColor: 1 },
+      { id: 4, marca: "Honda", modelo: "CR-V", tamaño: "Mediano", motor: "1.5L Turbo", cilindros: 4, hp: 190, torque: "240 Nm", transmision: "CVT", traccion: "AWD", capacidadCarga: "580 L", consumo: "15.8 km/L", tipo: "Gasolina", precio2026: 822900, paginaOficial: "https://www.honda.mx/autos/cr-v", tieneColores: true, coloresDisponibles: ['azul', 'blanco', 'negro', 'plata'], imagenesPorColor: 1 },
+      
+      // Nissan
+      { id: 5, marca: "Nissan", modelo: "X-Trail", tamaño: "Mediano", motor: "2.5L", cilindros: 4, hp: 181, torque: "240 Nm", transmision: "CVT", traccion: "AWD", capacidadCarga: "580 L", consumo: "13.6 km/L (ciudad)", tipo: "Gasolina", precio2026: 592900, paginaOficial: "https://www.nissan.com.mx/vehiculos/todos/x-trail.html", tieneColores: false, imagenesTotal: 1 },
+      
+      // Mazda
+      { id: 6, marca: "Mazda", modelo: "CX-30", tamaño: "Compacto", motor: "2.0L", cilindros: 4, hp: 166, torque: "213 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", capacidadCarga: "430 L", consumo: "14.8 km/L", tipo: "Gasolina", precio2026: 441900, paginaOficial: "https://www.mazda.mx/herramientas-de-compra/configura/mazda-cx-30", tieneColores: false, imagenesTotal: 1 },
+      { id: 7, marca: "Mazda", modelo: "CX-5", tamaño: "Mediano", motor: "2.5L", cilindros: 4, hp: 194, torque: "258 Nm", transmision: "Automática 6 velocidades", traccion: "AWD", capacidadCarga: "580 L", consumo: "14.2 km/L", tipo: "Gasolina", precio2026: 551900, paginaOficial: "https://www.mazda.mx/herramientas-de-compra/configura/mazda-cx-5", tieneColores: false, imagenesTotal: 1 },
+      
+      // Hyundai
+      { id: 8, marca: "Hyundai", modelo: "Tucson", tamaño: "Mediano", motor: "2.0L", cilindros: 4, hp: 147, torque: "186 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", capacidadCarga: "580 L", consumo: "14.5 km/L", tipo: "Gasolina", precio2026: 609300, paginaOficial: "https://www.hyundai.com.mx/configurador-modelos/#/121GSA", tieneColores: false, imagenesTotal: 1 },
+      
+      // Volkswagen
+      { id: 9, marca: "Volkswagen", modelo: "Tiguan", tamaño: "Mediano", motor: "1.4L TSI", cilindros: 4, hp: 150, torque: "250 Nm", transmision: "DSG 7", traccion: "Delantera", capacidadCarga: "580 L", consumo: "15.3 km/L", tipo: "Gasolina", precio2026: 599990, paginaOficial: "https://www.vw.com.mx/es/autos-suvs/tiguan.html", tieneColores: false, imagenesTotal: 1 },
+      
+      // Peugeot
+      { id: 10, marca: "Peugeot", modelo: "2008", tamaño: "Compacto", motor: "1.2L Turbo", cilindros: 3, hp: 130, torque: "230 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", capacidadCarga: "430 L", consumo: "17.3 km/L", tipo: "Gasolina", precio2026: 469900, paginaOficial: "https://www.peugeot.com.mx/gama/nueva-peugeot2008.html", tieneColores: true, coloresDisponibles: ['gris', 'plateado', 'rojo'], imagenesPorColor: 1 },
+      { id: 11, marca: "Peugeot", modelo: "3008", tamaño: "Mediano", motor: "1.6L Turbo", cilindros: 4, hp: 165, torque: "240 Nm", transmision: "Automática 6 velocidades", traccion: "AWD", capacidadCarga: "580 L", consumo: "14.0 km/L", tipo: "Gasolina", precio2026: 577400, paginaOficial: "https://www.peugeot.com.mx/gama/suv-peugeot-3008.html", tieneColores: true, coloresDisponibles: ['azul', 'gris', 'negro'], imagenesPorColor: 1 },
+      
+      // Dodge
+      { id: 12, marca: "Dodge", modelo: "Journey", tamaño: "Mediano", motor: "2.4L", cilindros: 4, hp: 173, torque: "230 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", capacidadCarga: "580 L", consumo: "13.5 km/L", tipo: "Gasolina", precio2026: 406900, paginaOficial: "https://www.dodge.com/mx/journey.html", tieneColores: false, imagenesTotal: 1 },
+      
+      // === NUEVOS VEHÍCULOS ===
+      // Chevrolet
+      { id: 13, marca: "Chevrolet", modelo: "Tracker", tamaño: "Compacto", motor: "1.0L Turbo", cilindros: 3, hp: 113, torque: "165 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", capacidadCarga: "390 L", consumo: "16.8 km/L", tipo: "Gasolina", precio2026: 356900, paginaOficial: "https://www.chevrolet.com.mx/suvs/tracker-mejor-suv-2025", tieneColores: true, coloresDisponibles: ['blanco', 'gris', 'negro', 'rojo'], imagenesPorColor: 1 },
+      { id: 14, marca: "Chevrolet", modelo: "Trax", tamaño: "Compacto", motor: "1.2L Turbo", cilindros: 3, hp: 137, torque: "240 Nm", transmision: "Automática 6 velocidades", traccion: "Delantera", capacidadCarga: "420 L", consumo: "15.5 km/L", tipo: "Gasolina", precio2026: 464900, paginaOficial: "https://www.chevrolet.com.mx/suvs/trax-suv-deportiva", tieneColores: true, coloresDisponibles: ['amarillo', 'azul', 'blanco', 'gris', 'gris_obscuro', 'negro', 'rojo'], imagenesPorColor: 1 },
+      
+      // Ford
+      { id: 15, marca: "Ford", modelo: "Territory", tamaño: "Mediano", motor: "1.8L Turbo", cilindros: 4, hp: 187, torque: "236 lb-ft", transmision: "Automática 7 velocidades", traccion: "AWD", capacidadCarga: "448 L", consumo: "13.2 km/L", tipo: "Gasolina", precio2026: 599000, paginaOficial: "https://www.ford.mx/suv/territory/2025/", tieneColores: true, coloresDisponibles: ['blanco', 'negro', 'rojo'], imagenesPorColor: 1 }
+    ];
+
+    // === VARIABLES GLOBALES ===
+    let vehiculoActual = null;
+    let colorActual = 'azul';
+    let indiceImagen = 0;
+    let chartInstance = null;
+    let vehiculoSeleccionadoId = null;
+
+    // === FUNCIONES AUXILIARES ===
+    function getBaseFolderName(veh) {
+      const marca = veh.marca.toLowerCase();
+      const modelo = veh.modelo.toLowerCase().replace(/\s+/g, '_');
+      return `imagenes/${marca}/${marca}_${modelo}`;
+    }
+
+    function detectarExtensionValida(basePath, callback) {
+      const extensiones = ['.webp', '.jpg', '.png', '.avif', '.jpeg'];
+      let index = 0;
+      function probar() {
+        if (index >= extensiones.length) {
+          callback(null);
+          return;
         }
-      ];
-
-      let vehiculoActual = null;
-      let colorActual = 'azul';
-      let indiceImagen = 0;
-      let chartInstance = null;
-      let vehiculoSeleccionadoId = null;
-
-      function getBaseFolderName(veh) {
-        const marca = veh.marca.toLowerCase();
-        const modelo = veh.modelo.toLowerCase().replace(/\s+/g, '_');
-        return `imagenes/${marca}/${marca}_${modelo}`;
-      }
-
-      function detectarExtensionValida(basePath, callback) {
-        const extensiones = ['.webp', '.jpg', '.png', '.avif', '.jpeg'];
-        let index = 0;
-
-        function probar() {
-          if (index >= extensiones.length) {
-            callback(null);
-            return;
-          }
-          const ruta = basePath + extensiones[index] + '?v=' + Date.now();
-          const img = new Image();
-          img.onload = () => callback(ruta);
-          img.onerror = () => {
-            index++;
-            probar();
-          };
-          img.src = ruta;
-        }
-
-        probar();
-      }
-
-      function getColoresDelVehiculo(veh) {
-        if (!veh.tieneColores) return [];
-        const coloresHex = {
-          'azul': '#3498db',
-          'blanco': '#ffffff',
-          'gris': '#95a5a6',
-          'negro': '#2c3e50',
-          'plata': '#bdc3c7',
-          'rojo': '#e74c3c',
-          'blanco_perlado': '#f2f2f2',
-          'plateado': '#bdc3c7'
+        const ruta = basePath + extensiones[index] + '?v=' + Date.now();
+        const img = new Image();
+        img.onload = () => callback(ruta);
+        img.onerror = () => {
+          index++;
+          probar();
         };
-        return veh.coloresDisponibles.map(color => ({
-          nombre: color,
-          hex: coloresHex[color] || '#ccc'
-        }));
+        img.src = ruta;
       }
+      probar();
+    }
 
-      function renderVehicleList(lista = vehiculos) {
-        const container = document.getElementById("vehicleList");
-        container.innerHTML = "";
-        lista.forEach(v => {
-          const btn = document.createElement("button");
-          btn.className = "vehicle-item";
-          if (v.id === vehiculoSeleccionadoId) {
-            btn.classList.add("selected");
-          }
-          btn.textContent = `${v.marca} ${v.modelo}`;
-          btn.dataset.id = v.id;
-          btn.onclick = () => {
-            vehiculoSeleccionadoId = v.id;
-            mostrarVehiculo(v);
-            document.getElementById("sidebar").classList.remove("active");
-            actualizarBotonesSeleccionados();
-          };
-          container.appendChild(btn);
-        });
-      }
+    function getColoresDelVehiculo(veh) {
+      if (!veh.tieneColores) return [];
+      const coloresHex = {
+        'azul': '#3498db',
+        'blanco': '#ffffff',
+        'gris': '#95a5a6',
+        'negro': '#2c3e50',
+        'plata': '#bdc3c7',
+        'rojo': '#e74c3c',
+        'blanco_perlado': '#f2f2f2',
+        'plateado': '#bdc3c7',
+        'amarillo': '#f1c40f',
+        'gris_obscuro': '#7f8c8d'
+      };
+      return veh.coloresDisponibles.map(color => ({
+        nombre: color,
+        hex: coloresHex[color] || '#ccc'
+      }));
+    }
 
-      function actualizarBotonesSeleccionados() {
-        document.querySelectorAll('.vehicle-item').forEach(btn => {
-          if (parseInt(btn.dataset.id) === vehiculoSeleccionadoId) {
-            btn.classList.add('selected');
-          } else {
-            btn.classList.remove('selected');
-          }
-        });
-      }
-
-      function mostrarVehiculo(veh) {
-        vehiculoActual = veh;
-        if (veh.tieneColores) {
-          const colores = getColoresDelVehiculo(veh);
-          colorActual = colores.length > 0 ? colores[0].nombre : 'azul';
+    function renderVehicleList(lista = vehiculos) {
+      const container = document.getElementById("vehicleList");
+      container.innerHTML = "";
+      lista.forEach(v => {
+        const btn = document.createElement("button");
+        btn.className = "vehicle-item";
+        if (v.id === vehiculoSeleccionadoId) {
+          btn.classList.add("selected");
         }
+        btn.textContent = `${v.marca} ${v.modelo}`;
+        btn.dataset.id = v.id;
+        btn.onclick = () => {
+          vehiculoSeleccionadoId = v.id;
+          mostrarVehiculo(v);
+          document.getElementById("sidebar").classList.remove("active");
+          actualizarBotonesSeleccionados();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function actualizarBotonesSeleccionados() {
+      document.querySelectorAll('.vehicle-item').forEach(btn => {
+        if (parseInt(btn.dataset.id) === vehiculoSeleccionadoId) {
+          btn.classList.add('selected');
+        } else {
+          btn.classList.remove('selected');
+        }
+      });
+    }
+
+    function mostrarVehiculo(veh) {
+      vehiculoActual = veh;
+      if (veh.tieneColores) {
+        const colores = getColoresDelVehiculo(veh);
+        colorActual = colores.length > 0 ? colores[0].nombre : 'azul';
+      }
+      indiceImagen = 0;
+      renderVehiculo();
+    }
+
+    function renderVehiculo() {
+      if (!vehiculoActual) return;
+
+      const folderBase = getBaseFolderName(vehiculoActual);
+      let totalImagenes = vehiculoActual.tieneColores ? vehiculoActual.imagenesPorColor : vehiculoActual.imagenesTotal;
+      let imagenes = new Array(totalImagenes).fill(null);
+      let cargadas = 0;
+
+      for (let i = 1; i <= totalImagenes; i++) {
+        let folderColor = folderBase + '/';
+        if (vehiculoActual.tieneColores) {
+          folderColor = `${folderBase}/${colorActual}/`;
+        }
+        detectarExtensionValida(folderColor + i, (ruta) => {
+          imagenes[i - 1] = ruta || 'https://via.placeholder.com/600x400?text=No+disponible';
+          cargadas++;
+          if (cargadas === totalImagenes) {
+            mostrarContenidoFinal(imagenes, totalImagenes);
+          }
+        });
+      }
+
+      if (totalImagenes === 0) {
+        mostrarContenidoFinal(['https://via.placeholder.com/600x400?text=Sin+imágenes'], 1);
+      }
+    }
+
+    function mostrarContenidoFinal(imagenes, totalImagenes) {
+      let colorSelectorHTML = '';
+      if (vehiculoActual.tieneColores) {
+        const colores = getColoresDelVehiculo(vehiculoActual);
+        colorSelectorHTML = '<div class="color-selector">';
+        colores.forEach(c => {
+          const isActive = c.nombre === colorActual ? 'active' : '';
+          colorSelectorHTML += `
+            <div class="color-btn ${isActive}" 
+                 style="background-color: ${c.hex};"
+                 onclick="cambiarColor('${c.nombre}')"
+                 title="${c.nombre.charAt(0).toUpperCase() + c.nombre.slice(1)}">
+            </div>`;
+        });
+        colorSelectorHTML += '</div>';
+      }
+
+      let imagenHTML = '';
+      if (totalImagenes === 1 || !imagenes[0]) {
+        const src = imagenes[0] || 'https://via.placeholder.com/600x400?text=Error';
+        imagenHTML = `<img src="${src}" alt="${vehiculoActual.marca} ${vehiculoActual.modelo}" class="vehicle-image">`;
+      } else {
+        imagenHTML = `
+          <div class="image-container">
+            <button class="nav-btn left" onclick="cambiarImagen(-1)">‹</button>
+            <img src="${imagenes[indiceImagen]}" alt="${vehiculoActual.marca} ${vehiculoActual.modelo}" class="vehicle-image">
+            <button class="nav-btn right" onclick="cambiarImagen(1)">›</button>
+          </div>
+        `;
+      }
+
+      const precioFormateado = new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN',
+        minimumFractionDigits: 0
+      }).format(vehiculoActual.precio2026);
+
+      const chartHTML = `<div class="chart-container"><canvas id="rendimientoChart"></canvas></div>`;
+
+      document.getElementById("mainContent").innerHTML = `
+        <div class="vehicle-card">
+          ${colorSelectorHTML}
+          ${imagenHTML}
+          <div class="info">
+            <h2 class="title">${vehiculoActual.marca} ${vehiculoActual.modelo}</h2>
+            <div class="specs">
+              <div class="spec-item"><strong>Tamaño</strong><br>${vehiculoActual.tamaño}</div>
+              <div class="spec-item"><strong>Motor</strong><br>${vehiculoActual.motor}</div>
+              <div class="spec-item"><strong>Cilindros</strong><br>${vehiculoActual.cilindros === 0 ? 'N/A' : vehiculoActual.cilindros}</div>
+              <div class="spec-item"><strong>Potencia</strong><br>${vehiculoActual.hp} HP</div>
+              <div class="spec-item"><strong>Torque</strong><br>${vehiculoActual.torque}</div>
+              <div class="spec-item"><strong>Transmisión</strong><br>${vehiculoActual.transmision}</div>
+              <div class="spec-item"><strong>Tracción</strong><br>${vehiculoActual.traccion}</div>
+              <div class="spec-item"><strong>Cap. Carga</strong><br>${vehiculoActual.capacidadCarga}</div>
+              <div class="spec-item"><strong>Consumo</strong><br>${vehiculoActual.consumo}</div>
+              <div class="spec-item"><strong>Tipo</strong><br>${vehiculoActual.tipo}</div>
+            </div>
+            <div class="price">${precioFormateado} MXN</div>
+            <a href="${vehiculoActual.paginaOficial}" target="_blank" class="official-link">Visitar Página Oficial</a>
+            ${chartHTML}
+          </div>
+        </div>
+      `;
+
+      renderizarGrafica(vehiculoActual);
+    }
+
+    // === FUNCIONES GLOBALES PARA EVENTOS ===
+    window.cambiarColor = function(color) {
+      if (vehiculoActual && vehiculoActual.tieneColores) {
+        colorActual = color;
         indiceImagen = 0;
         renderVehiculo();
       }
+    };
 
-      function renderVehiculo() {
-        if (!vehiculoActual) return;
+    window.cambiarImagen = function(direccion) {
+      if (!vehiculoActual) return;
+      const total = vehiculoActual.tieneColores ? vehiculoActual.imagenesPorColor : vehiculoActual.imagenesTotal;
+      if (total <= 1) return;
+      indiceImagen = (indiceImagen + direccion + total) % total;
+      renderVehiculo();
+    };
 
-        const folderBase = getBaseFolderName(vehiculoActual);
-        let totalImagenes = vehiculoActual.tieneColores ? vehiculoActual.imagenesPorColor : vehiculoActual.imagenesTotal;
-        let imagenes = new Array(totalImagenes).fill(null);
-        let cargadas = 0;
+    function renderizarGrafica(veh) {
+      const ctx = document.getElementById('rendimientoChart').getContext('2d');
+      if (chartInstance) chartInstance.destroy();
 
-        for (let i = 1; i <= totalImagenes; i++) {
-          let folderColor = folderBase + '/';
-          if (vehiculoActual.tieneColores) {
-            folderColor = `${folderBase}/${colorActual}/`;
-          }
-          detectarExtensionValida(folderColor + i, (ruta) => {
-            imagenes[i - 1] = ruta || 'https://via.placeholder.com/600x400?text=No+disponible';
-            cargadas++;
-            if (cargadas === totalImagenes) {
-              mostrarContenidoFinal(imagenes, totalImagenes);
+      const potenciaNorm = Math.min(veh.hp / 20, 25);
+      const torqueNorm = Math.min(parseInt(veh.torque) / 15, 25);
+      const eficienciaNum = parseFloat(veh.consumo);
+      const eficienciaNorm = veh.tipo === 'Eléctrico' 
+        ? Math.min(eficienciaNum * 2.5, 25) 
+        : Math.min(eficienciaNum * 1.5, 25);
+
+      const data = {
+        labels: ['Potencia', 'Torque', 'Eficiencia'],
+        datasets: [{
+          label: 'Rendimiento',
+           [potenciaNorm, torqueNorm, eficienciaNorm],
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(75, 192, 192, 0.6)'
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(75, 192, 192, 1)'
+          ],
+          borderWidth: 1
+        }]
+      };
+
+      chartInstance = new Chart(ctx, {
+        type: 'bar',
+         data,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: 'Valor (normalizado)' },
+              ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-primary') }
+            },
+            x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-primary') } }
+          },
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Rendimiento Técnico',
+              color: getComputedStyle(document.body).getPropertyValue('--text-primary')
             }
-          });
+          }
         }
+      });
+    }
 
-        if (totalImagenes === 0) {
-          mostrarContenidoFinal(['https://via.placeholder.com/600x400?text=Sin+imágenes'], 1);
-        }
+    // === EVENTOS ===
+    document.getElementById("searchInput").addEventListener("input", function() {
+      const query = this.value.toLowerCase();
+      const filtrados = vehiculos.filter(v =>
+        v.marca.toLowerCase().includes(query) ||
+        v.modelo.toLowerCase().includes(query)
+      );
+      renderVehicleList(filtrados);
+    });
+
+    // ✅ MENÚ HAMBURGUESA: DELEGACIÓN DE EVENTOS (FUNCIONA SIEMPRE)
+    document.addEventListener("click", function(e) {
+      if (e.target.id === "menuToggle") {
+        document.getElementById("sidebar")?.classList.add("active");
+      } else if (e.target.id === "closeSidebar") {
+        document.getElementById("sidebar")?.classList.remove("active");
       }
+    });
 
-      function mostrarContenidoFinal(imagenes, totalImagenes) {
-        let colorSelectorHTML = '';
-        if (vehiculoActual.tieneColores) {
-          const colores = getColoresDelVehiculo(vehiculoActual);
-          colorSelectorHTML = '<div class="color-selector">';
-          colores.forEach(c => {
-            const isActive = c.nombre === colorActual ? 'active' : '';
-            colorSelectorHTML += `
-              <div class="color-btn ${isActive}" 
-                   style="background-color: ${c.hex};"
-                   onclick="cambiarColor('${c.nombre}')"
-                   title="${c.nombre.charAt(0).toUpperCase() + c.nombre.slice(1)}">
-              </div>`;
-          });
-          colorSelectorHTML += '</div>';
-        }
-
-        let imagenHTML = '';
-        if (totalImagenes === 1 || !imagenes[0]) {
-          const src = imagenes[0] || 'https://via.placeholder.com/600x400?text=Error';
-          imagenHTML = `<img src="${src}" alt="${vehiculoActual.marca} ${vehiculoActual.modelo}" class="vehicle-image">`;
-        } else {
-          imagenHTML = `
-            <div class="image-container">
-              <button class="nav-btn left" onclick="cambiarImagen(-1)">‹</button>
-              <img src="${imagenes[indiceImagen]}" alt="${vehiculoActual.marca} ${vehiculoActual.modelo}" class="vehicle-image">
-              <button class="nav-btn right" onclick="cambiarImagen(1)">›</button>
-            </div>
-          `;
-        }
-
-        const precioFormateado = new Intl.NumberFormat('es-MX', {
-          style: 'currency',
-          currency: 'MXN',
-          minimumFractionDigits: 0
-        }).format(vehiculoActual.precio2026);
-
-        const chartHTML = `<div class="chart-container"><canvas id="rendimientoChart"></canvas></div>`;
-
-        document.getElementById("mainContent").innerHTML = `
-          <div class="vehicle-card">
-            ${colorSelectorHTML}
-            ${imagenHTML}
-            <div class="info">
-              <h2 class="title">${vehiculoActual.marca} ${vehiculoActual.modelo}</h2>
-              <div class="specs">
-                <div class="spec-item"><strong>Tamaño</strong><br>${vehiculoActual.tamaño}</div>
-                <div class="spec-item"><strong>Motor</strong><br>${vehiculoActual.motor}</div>
-                <div class="spec-item"><strong>Cilindros</strong><br>${vehiculoActual.cilindros === 0 ? 'N/A' : vehiculoActual.cilindros}</div>
-                <div class="spec-item"><strong>Potencia</strong><br>${vehiculoActual.hp} HP</div>
-                <div class="spec-item"><strong>Torque</strong><br>${vehiculoActual.torque}</div>
-                <div class="spec-item"><strong>Transmisión</strong><br>${vehiculoActual.transmision}</div>
-                <div class="spec-item"><strong>Tracción</strong><br>${vehiculoActual.traccion}</div>
-                <div class="spec-item"><strong>Cap. Carga</strong><br>${vehiculoActual.capacidadCarga}</div>
-                <div class="spec-item"><strong>Consumo</strong><br>${vehiculoActual.consumo}</div>
-                <div class="spec-item"><strong>Tipo</strong><br>${vehiculoActual.tipo}</div>
-              </div>
-              <div class="price">${precioFormateado} MXN</div>
-              <a href="${vehiculoActual.paginaOficial}" target="_blank" class="official-link">Visitar Página Oficial</a>
-              ${chartHTML}
-            </div>
-          </div>
-        `;
-
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      const isDark = document.body.classList.contains("dark-mode");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      document.getElementById("themeToggle").textContent = 
+        isDark ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
+      if (vehiculoActual && chartInstance) {
         renderizarGrafica(vehiculoActual);
       }
-
-      window.cambiarColor = function(color) {
-        if (vehiculoActual && vehiculoActual.tieneColores) {
-          colorActual = color;
-          indiceImagen = 0;
-          renderVehiculo();
-        }
-      };
-
-      window.cambiarImagen = function(direccion) {
-        if (!vehiculoActual) return;
-        const total = vehiculoActual.tieneColores ? vehiculoActual.imagenesPorColor : vehiculoActual.imagenesTotal;
-        if (total <= 1) return;
-        indiceImagen = (indiceImagen + direccion + total) % total;
-        renderVehiculo();
-      };
-
-      function renderizarGrafica(veh) {
-        const ctx = document.getElementById('rendimientoChart').getContext('2d');
-        if (chartInstance) chartInstance.destroy();
-
-        const potenciaNorm = Math.min(veh.hp / 20, 25);
-        const torqueNorm = Math.min(parseInt(veh.torque) / 15, 25);
-        const eficienciaNum = parseFloat(veh.consumo);
-        const eficienciaNorm = veh.tipo === 'Eléctrico' 
-          ? Math.min(eficienciaNum * 2.5, 25) 
-          : Math.min(eficienciaNum * 1.5, 25);
-
-        const data = {
-          labels: ['Potencia', 'Torque', 'Eficiencia'],
-          datasets: [{
-            label: 'Rendimiento',
-             [potenciaNorm, torqueNorm, eficienciaNorm],
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.6)',
-              'rgba(255, 99, 132, 0.6)',
-              'rgba(75, 192, 192, 0.6)'
-            ],
-            borderColor: [
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 99, 132, 1)',
-              'rgba(75, 192, 192, 1)'
-            ],
-            borderWidth: 1
-          }]
-        };
-
-        chartInstance = new Chart(ctx, {
-          type: 'bar',
-           data,
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              y: {
-                beginAtZero: true,
-                title: { display: true, text: 'Valor (normalizado)' },
-                ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-primary') }
-              },
-              x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-primary') } }
-            },
-            plugins: {
-              legend: { display: false },
-              title: {
-                display: true,
-                text: 'Rendimiento Técnico',
-                color: getComputedStyle(document.body).getPropertyValue('--text-primary')
-              }
-            }
-          }
-        });
-      }
-
-      document.getElementById("searchInput").addEventListener("input", function() {
-        const query = this.value.toLowerCase();
-        const filtrados = vehiculos.filter(v =>
-          v.marca.toLowerCase().includes(query) ||
-          v.modelo.toLowerCase().includes(query)
-        );
-        renderVehicleList(filtrados);
-      });
-
-      // ✅ Eventos del menú corregidos con DOMContentLoaded
-      const menuToggle = document.getElementById("menuToggle");
-      const closeSidebar = document.getElementById("closeSidebar");
-      const sidebar = document.getElementById("sidebar");
-
-      if (menuToggle && sidebar) {
-        menuToggle.addEventListener("click", () => {
-          sidebar.classList.add("active");
-        });
-      }
-
-      if (closeSidebar && sidebar) {
-        closeSidebar.addEventListener("click", () => {
-          sidebar.classList.remove("active");
-        });
-      }
-
-      document.getElementById("themeToggle").addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        const isDark = document.body.classList.contains("dark-mode");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-        document.getElementById("themeToggle").textContent = 
-          isDark ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
-        if (vehiculoActual && chartInstance) {
-          renderizarGrafica(vehiculoActual);
-        }
-        actualizarBotonesSeleccionados();
-      });
-
-      renderVehicleList();
+      actualizarBotonesSeleccionados();
     });
+
+    // === INICIALIZAR ===
+    renderVehicleList();
   </script>
 </body>
 </html>
