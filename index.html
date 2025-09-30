@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard SUVs México 2026</title>
+  <title>Dashboard SUVs! México 2026</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
@@ -377,6 +377,9 @@
         rutaBase = `${folderBase}/`;
       }
 
+      // Eliminar dobles barras
+      rutaBase = rutaBase.replace(/\/+/g, '/');
+
       let index = 0;
       function probar() {
         if (index >= EXTENSIONES.length) {
@@ -407,7 +410,9 @@
 
       function verificarColor(color) {
         const folderPath = `${folderBase}/${color}/`;
-        probarImagen(folderPath, 1, (existe) => {
+        // Eliminar dobles barras
+        const cleanPath = folderPath.replace(/\/+/g, '/');
+        probarImagen(cleanPath, 1, (existe) => {
           if (existe) {
             colores.push(color);
           }
@@ -495,6 +500,9 @@
       } else {
         folderPath = `${folderBase}/`;
       }
+
+      // Eliminar dobles barras
+      folderPath = folderPath.replace(/\/+/g, '/');
 
       detectarTotalImagenes(folderPath, (total) => {
         totalImagenes = total || 1;
