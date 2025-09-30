@@ -230,7 +230,7 @@
       document.getElementById('themeToggle').textContent = '☀️ Modo Claro';
     }
 
-    // === DATOS DE VEHÍCULOS CON SOPORTE PARA IMÁGENES MÚLTIPLES ===
+    // === DATOS DE VEHÍCULOS ===
     const vehiculos = [
       { id: 1, marca: "Toyota", modelo: "Corolla Cross", precio2026: 544000, paginaOficial: "https://www.toyota.mx/modelos/suv/corolla-cross/", motor: "2.0L", hp: 169, torque: "205 Nm", transmision: "CVT", traccion: "Delantera", consumo: "15.2 km/L", tipo: "Gasolina", tamaño: "Compacto", tieneColores: true, coloresDisponibles: ['azul', 'blanco', 'gris', 'negro', 'plata', 'rojo'], imagenesPorColor: 2 },
       { id: 2, marca: "Toyota", modelo: "RAV4", precio2026: 577100, paginaOficial: "https://www.toyota.mx/modelos/suv/rav4/", motor: "2.5L", hp: 203, torque: "250 Nm", transmision: "Automática 8 velocidades", traccion: "AWD", consumo: "13.8 km/L", tipo: "Gasolina", tamaño: "Mediano", tieneColores: true, coloresDisponibles: ['blanco', 'blanco_perlado', 'gris', 'plata', 'rojo'], imagenesPorColor: 2 },
@@ -260,15 +260,18 @@
       return `imagenes/${marca}/${marca}_${modelo}`;
     }
 
+    // ✅ Extensiones en orden de preferencia (incluye .JPG)
+    const EXTENSIONES = ['.avif', '.webp', '.jpg', '.png', '.jpeg', '.JPG'];
+
     function detectarExtensionValida(basePath, callback) {
-      const extensiones = ['.webp', '.jpg', '.png', '.avif', '.jpeg'];
       let index = 0;
       function probar() {
-        if (index >= extensiones.length) {
+        if (index >= EXTENSIONES.length) {
           callback(null);
           return;
         }
-        const ruta = basePath + extensiones[index] + '?v=' + Date.now();
+        const ext = EXTENSIONES[index];
+        const ruta = `${basePath}${ext}?v=${Date.now()}`;
         const img = new Image();
         img.onload = () => callback(ruta);
         img.onerror = () => {
@@ -335,7 +338,7 @@
       modeloSelector.disabled = false;
     }
 
-    // === MOSTRAR VEHÍCULO CON IMÁGENES REALES Y FLECHAS ===
+    // === MOSTRAR VEHÍCULO ===
     function mostrarVehiculo(id) {
       const veh = vehiculos.find(v => v.id == id);
       if (!veh) return;
@@ -360,7 +363,7 @@
       }
 
       detectarExtensionValida(folderColor + (indiceImagen + 1), (ruta) => {
-        renderizarContenido(ruta || 'https://via.placeholder.com/600x400?text=Imagen+no+disponible', totalImagenes);
+        renderizarContenido(ruta, totalImagenes);
       });
     }
 
@@ -389,18 +392,29 @@
       }
 
       let imagenHTML = '';
-      if (totalImagenes > 1) {
-        imagenHTML = `
-          <div class="image-container">
-            <button class="nav-btn left" onclick="cambiarImagen(-1)">‹</button>
-            <img src="${rutaImagen}" alt="${veh.marca} ${veh.modelo}" class="vehicle-image" onerror="this.src='https://via.placeholder.com/600x400?text=Error'">
-            <button class="nav-btn right" onclick="cambiarImagen(1)">›</button>
-          </div>
-        `;
+      if (rutaImagen) {
+        if (totalImagenes > 1) {
+          imagenHTML = `
+            <div class="image-container">
+              <button class="nav-btn left" onclick="cambiarImagen(-1)">‹</button>
+              <img src="${rutaImagen}" alt="${veh.marca} ${veh.modelo}" class="vehicle-image">
+              <button class="nav-btn right" onclick="cambiarImagen(1)">›</button>
+            </div>
+          `;
+        } else {
+          imagenHTML = `
+            <div class="image-container">
+              <img src="${rutaImagen}" alt="${veh.marca} ${veh.modelo}" class="vehicle-image">
+            </div>
+          `;
+        }
       } else {
+        // Si falla, mostramos placeholder con flechas si hay múltiples imágenes
         imagenHTML = `
           <div class="image-container">
-            <img src="${rutaImagen}" alt="${veh.marca} ${veh.modelo}" class="vehicle-image" onerror="this.src='https://via.placeholder.com/600x400?text=Error'">
+            ${totalImagenes > 1 ? '<button class="nav-btn left" onclick="cambiarImagen(-1)">‹</button>' : ''}
+            <img src="https://via.placeholder.com/600x400?text=Imagen+no+disponible" alt="Error" class="vehicle-image">
+            ${totalImagenes > 1 ? '<button class="nav-btn right" onclick="cambiarImagen(1)">›</button>' : ''}
           </div>
         `;
       }
